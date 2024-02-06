@@ -11,7 +11,7 @@ const Routes = () => {
     <ReactRoutes>
       <Route
         exact
-        path="/"
+        path={process.env.PUBLIC_URL + "/"}
         element={((matchProps) => (
           <WithLayout
             {...matchProps}
