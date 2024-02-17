@@ -1,19 +1,31 @@
-import React from "react";
 import { useTheme } from "@mui/material/styles";
-import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import Typography from "@mui/material/Typography";
+/* import Button from "@mui/material/Button"; */
+/* import useMediaQuery from "@mui/material/useMediaQuery"; */
 import { colors } from "@mui/material";
-import GitHubIcon from "@mui/icons-material/GitHub";
+/* import GitHubIcon from "@mui/icons-material/GitHub"; */
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import AppBar from "@mui/material/AppBar";
 import { CodeBlock, paraisoDark } from "react-code-blocks";
-import { PowerBIEmbed } from "powerbi-client-react";
-import { models } from "powerbi-client";
+import React, { useState } from "react";
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Card,
+  Typography,
+} from "@mui/material";
+import shows from "../../../../../data/Netflix_data.json";
+import InfoBox from "../Dashboard/InfoBox";
+import { CardContent } from "@mui/material";
+import Map from "../Dashboard/Map";
+import "leaflet/dist/leaflet.css";
+import Avatar from "@mui/material/Avatar";
+import { GiDirectorChair, GiDualityMask } from "react-icons/gi";
+import { MdSummarize } from "react-icons/md";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -49,10 +61,66 @@ function a11yProps(index) {
 }
 
 const Hero = () => {
+  const [selectedShow, setSelectedShow] = useState("");
+  const [selectedShowData, setSelectedShowData] = useState(null);
+  const [castList, setCastList] = useState([]);
+  const [directorList, setDirectorList] = useState([]);
+  const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -4047796 });
+  const [mapZoom, setMapZoom] = useState(3);
+
+  const handleChangeMovie = (event) => {
+    const newSelectedShow = event.target.value;
+    setSelectedShow(newSelectedShow);
+    const selectedShowData = shows[newSelectedShow];
+    setSelectedShowData(selectedShowData);
+    setCastList(
+      selectedShowData.cast.split(",").map((castMember) => castMember.trim())
+    );
+    setDirectorList(
+      selectedShowData.director
+        .split(",")
+        .map((directorMember) => directorMember.trim())
+    );
+    if (selectedShowData) {
+      setSelectedShowData(selectedShowData);
+      const lat = parseFloat(selectedShowData.lat);
+      const lng = parseFloat(selectedShowData.lng);
+      if (isNaN(lat) || isNaN(lng)) {
+        // If the lat or lng is not a valid number, set the map center to a default value
+        setMapCenter([34.80746, -4047796]);
+      } else {
+        setMapCenter([lat, lng]);
+        setMapZoom(4);
+      }
+    } else {
+      setMapCenter([34.80746, -4047796]);
+    }
+  };
+
+  const DropdownSelect = () => (
+    <FormControl fullWidth>
+      <InputLabel id="show-select-label">Select a Show</InputLabel>
+      <Select
+        labelId="show-select-label"
+        id="show-select"
+        value={selectedShow}
+        onChange={handleChangeMovie}
+      >
+        <MenuItem value="">
+          <em>None</em>
+        </MenuItem>
+        {Object.entries(shows).map(([showId, showData]) => (
+          <MenuItem key={showId} value={showId}>
+            {showData.title}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
+  );
   const theme = useTheme();
-  const isMd = useMediaQuery(theme.breakpoints.up("md"), {
+  /*   const isMd = useMediaQuery(theme.breakpoints.up("md"), {
     defaultMatches: true,
-  });
+  }); */
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -179,7 +247,7 @@ for key in dictionary_df:
             The database was downloaded from Kaggle website
           </Typography>
         </Box>
-        <Box
+        {/*         <Box
           marginBottom={{ xs: 4, sm: 6, md: 8 }}
           display="flex"
           flexDirection={{ xs: "column", sm: "row" }}
@@ -196,7 +264,7 @@ for key in dictionary_df:
           >
             View on Github
           </Box>
-        </Box>
+        </Box> */}
         <Box
           sx={{
             width: "100%",
@@ -211,8 +279,7 @@ for key in dictionary_df:
             >
               <Tab label="Notebook" {...a11yProps(0)} />
               <Tab label="Code Source" {...a11yProps(1)} />
-              <Tab label="Databases" {...a11yProps(2)} />
-              <Tab label="Display Results" {...a11yProps(3)} />
+              <Tab label="Display Results" {...a11yProps(2)} />
             </Tabs>
           </AppBar>
           <CustomTabPanel value={value} index={0}>
@@ -358,64 +425,371 @@ for key in dictionary_df:
             </Box>
           </CustomTabPanel>
           <CustomTabPanel value={value} index={2}>
-            Item 3
-          </CustomTabPanel>
-          <CustomTabPanel value={value} index={3}>
-            {/*             <iframe
-              title="DataAnalystPowerBi"
-              width="1140"
-              height="741.25"
-              src="https://app.powerbi.com/reportEmbed?reportId=8162c62e-4834-4d9b-876f-ee9828b8bd83&autoAuth=true&embeddedDemo=true"
-              frameborder="0"
-              allowFullScreen="true"
-            ></iframe> */}
-            {/* <PowerBIEmbed
-              embedConfig={{
-                type: "report", // Supported types: report, dashboard, tile, visual, qna, paginated report and create
-                id: "8162c62e-4834-4d9b-876f-ee9828b8bd83>",
-                embedUrl:
-                  "https://app.powerbi.com/reportEmbed?reportId=8162c62e-4834-4d9b-876f-ee9828b8bd83&groupId=8f58fe7b-3b97-4b21-a51f-691b40aeb946&w=2&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLUZSQU5DRS1DRU5UUkFMLUEtUFJJTUFSWS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldCIsImVtYmVkRmVhdHVyZXMiOnsidXNhZ2VNZXRyaWNzVk5leHQiOnRydWUsImRpc2FibGVBbmd1bGFySlNCb290c3RyYXBSZXBvcnRFbWJlZCI6dHJ1ZX19",
-                accessToken: "<Access Token>",
-                tokenType: models.TokenType.Embed, // Use models.TokenType.Aad for SaaS embed
-                settings: {
-                  panes: {
-                    filters: {
-                      expanded: false,
-                      visible: false,
-                    },
-                  },
-                  background: models.BackgroundType.Transparent,
-                },
+            <div
+              className="App"
+              style={{
+                display: "flex",
+                justifyContent: "space-evenly",
+                padding: "10px",
               }}
-              eventHandlers={
-                new Map([
-                  [
-                    "loaded",
-                    function () {
-                      console.log("Report loaded");
-                    },
-                  ],
-                  [
-                    "rendered",
-                    function () {
-                      console.log("Report rendered");
-                    },
-                  ],
-                  [
-                    "error",
-                    function (event) {
-                      console.log(event.detail);
-                    },
-                  ],
-                  ["visualClicked", () => console.log("visual clicked")],
-                  ["pageChanged", (event) => console.log(event)],
-                ])
-              }
-              cssClassName={"reportClass"}
-              getEmbeddedComponent={(embeddedReport) => {
-                window.report = embeddedReport;
-              }}
-            /> */}
+            >
+              <div
+                className="app__left"
+                style={{
+                  float: "left",
+                  width: "30%",
+                  marginRight: "2%",
+                  flex: "0.7",
+                }}
+              >
+                <div
+                  className="app__header"
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginBottom: "20px",
+                    alignItems: "center",
+                  }}
+                >
+                  {/* Header */}
+                  <Typography variant="h4" color={"primary"}>
+                    NETFLIX DATA
+                  </Typography>
+                  <DropdownSelect />
+                </div>
+                <div
+                  className="app__stats"
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <InfoBox
+                    title="Type"
+                    data={selectedShowData ? selectedShowData.type : ""}
+                  />
+                  <InfoBox
+                    title="Duration"
+                    data={selectedShowData ? selectedShowData.duration : ""}
+                  />
+                  <InfoBox
+                    title="Release year"
+                    data={selectedShowData ? selectedShowData.release_year : ""}
+                  />
+                  <InfoBox
+                    title="Rating"
+                    data={selectedShowData ? selectedShowData.rating : ""}
+                  />
+                  {/* Title + Select Input dropdown field */}
+                  {/* Infobxs */}
+                  {/* Infobxs */}
+                  {/* Infobxs */}
+                  {/* Table */}
+                  {/* Graph */}
+                  {/* Map */}
+                </div>
+                <div className="Map">
+                  <Map
+                    center={mapCenter}
+                    zoom={mapZoom}
+                    onCenterChange={(newCenter) => setMapCenter(newCenter)}
+                  />
+                </div>
+              </div>
+              <div
+                className="card-container"
+                style={{ width: "30%", height: "65%" }}
+              >
+                <Card
+                  sx={{
+                    maxWidth: 343,
+                    borderRadius: "20px",
+                    boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
+                    transition: "0.3s",
+                    margin: "60px 0",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <Box sx={{ minWidth: 256 }}>
+                    <Box
+                      sx={{
+                        padding: `4px 24px 0`,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Avatar
+                        alt={"brand logo"}
+                        sx={(theme) => ({
+                          width: 48,
+                          height: 48,
+                          transform: "translateY(50%)",
+                          "& > img": {
+                            margin: 0,
+                            backgroundColor: "common.white",
+                          },
+                          [theme.breakpoints.up("sm")]: {
+                            width: 60,
+                            height: 60,
+                          },
+                        })}
+                      >
+                        <GiDualityMask />
+                      </Avatar>
+                      <Typography
+                        sx={{
+                          textTransform: "uppercase",
+                          fontSize: 14,
+                          color: "grey.500",
+                          letterSpacing: "1px",
+                        }}
+                      >
+                        Cast
+                      </Typography>
+                    </Box>
+                    <Box
+                      component="hr"
+                      sx={(theme) => ({
+                        backgroundColor: "grey.200",
+                        marginBottom: `${24 - 1}px`, // minus 1 due to divider height
+                        [theme.breakpoints.up("sm")]: {
+                          marginBottom: `${30 - 1}px`, // minus 1 due to divider height
+                        },
+                      })}
+                    />
+                  </Box>
+                  <CardContent>
+                    <Typography
+                      variant="body2"
+                      component="div"
+                      color="text.secondary"
+                    >
+                      {castList.map((castMember, index) => (
+                        <tr key={index} style={{ marginTop: "10%" }}>
+                          <td>{castMember}</td>
+                        </tr>
+                      ))}
+                    </Typography>
+                  </CardContent>
+                </Card>
+                {/* <Card
+            className="Cast"
+            style={{
+              margin: "10px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <CardContent>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Cast Member</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {castList.map((castMember, index) => (
+                    <tr key={index} style={{ marginTop: "10%" }}>
+                      <td>{castMember}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </CardContent>
+          </Card> */}
+                <Card
+                  sx={{
+                    maxWidth: 343,
+                    borderRadius: "20px",
+                    boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
+                    transition: "0.3s",
+                    margin: "60px 0",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <Box sx={{ minWidth: 256 }}>
+                    <Box
+                      sx={{
+                        padding: `4px 24px 0`,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Avatar
+                        alt={"brand logo"}
+                        sx={(theme) => ({
+                          width: 48,
+                          height: 48,
+                          transform: "translateY(50%)",
+                          "& > img": {
+                            margin: 0,
+                            backgroundColor: "common.white",
+                          },
+                          [theme.breakpoints.up("sm")]: {
+                            width: 60,
+                            height: 60,
+                          },
+                        })}
+                      >
+                        <GiDirectorChair />
+                      </Avatar>
+                      <Typography
+                        sx={{
+                          textTransform: "uppercase",
+                          fontSize: 14,
+                          color: "grey.500",
+                          letterSpacing: "1px",
+                        }}
+                      >
+                        Directed By
+                      </Typography>
+                    </Box>
+                    <Box
+                      component="hr"
+                      sx={(theme) => ({
+                        backgroundColor: "grey.200",
+                        marginBottom: `${24 - 1}px`, // minus 1 due to divider height
+                        [theme.breakpoints.up("sm")]: {
+                          marginBottom: `${30 - 1}px`, // minus 1 due to divider height
+                        },
+                      })}
+                    />
+                  </Box>
+                  <CardContent>
+                    <Typography
+                      variant="body2"
+                      component="div"
+                      color="text.secondary"
+                    >
+                      {directorList.map((directorMember, index) => (
+                        <tr key={index}>
+                          <td>{directorMember}</td>
+                        </tr>
+                      ))}
+                    </Typography>
+                  </CardContent>
+                </Card>
+                {/* <Card
+            className="Director"
+            director={directorList}
+            style={{
+              padding: "30px",
+              margin: "10px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <CardContent>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Directed By</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {directorList.map((directorMember, index) => (
+                    <tr key={index}>
+                      <td>{directorMember}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </CardContent>
+          </Card> */}
+                {/* <Card
+            className="Description"
+            style={{
+              padding: "30px",
+              margin: "10px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Typography className="Description" color="textPrimary">
+              Description
+            </Typography>
+            <h4 className="Description_data">
+              {selectedShowData ? selectedShowData.description : ""}
+            </h4>
+          </Card> */}
+                <Card
+                  sx={{
+                    borderRadius: "20px",
+                    boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
+                    transition: "0.3s",
+                    marginTop: "30px",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <Box sx={{ minWidth: 256 }}>
+                    <Box
+                      sx={{
+                        padding: `4px 24px 0`,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Avatar
+                        alt={"brand logo"}
+                        sx={(theme) => ({
+                          width: 48,
+                          height: 48,
+                          transform: "translateY(50%)",
+                          "& > img": {
+                            margin: 0,
+                            backgroundColor: "common.white",
+                          },
+                          [theme.breakpoints.up("sm")]: {
+                            width: 60,
+                            height: 60,
+                          },
+                        })}
+                      >
+                        <MdSummarize />
+                      </Avatar>
+                      <Typography
+                        sx={{
+                          textTransform: "uppercase",
+                          fontSize: 14,
+                          color: "grey.500",
+                          letterSpacing: "1px",
+                        }}
+                      >
+                        Description
+                      </Typography>
+                    </Box>
+                    <Box
+                      component="hr"
+                      sx={(theme) => ({
+                        backgroundColor: "grey.200",
+                        marginBottom: `${24 - 1}px`, // minus 1 due to divider height
+                        [theme.breakpoints.up("sm")]: {
+                          marginBottom: `${30 - 1}px`, // minus 1 due to divider height
+                        },
+                      })}
+                    />
+                  </Box>
+                  <CardContent>
+                    <Typography
+                      variant="body2"
+                      component="div"
+                      color="text.secondary"
+                    >
+                      {selectedShowData ? selectedShowData.description : ""}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
           </CustomTabPanel>
         </Box>
       </Box>
