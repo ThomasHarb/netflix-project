@@ -12,8 +12,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import AppBar from "@mui/material/AppBar";
 import { CodeBlock, paraisoDark } from "react-code-blocks";
-/* import { PowerBIEmbed } from "powerbi-client-react";
-import { models } from "powerbi-client"; */
+import { PowerBIEmbed } from "powerbi-client-react";
+import { models } from "powerbi-client";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -361,14 +361,61 @@ for key in dictionary_df:
             Item 3
           </CustomTabPanel>
           <CustomTabPanel value={value} index={3}>
-            <iframe
+            {/*             <iframe
               title="DataAnalystPowerBi"
               width="1140"
               height="741.25"
               src="https://app.powerbi.com/reportEmbed?reportId=8162c62e-4834-4d9b-876f-ee9828b8bd83&autoAuth=true&embeddedDemo=true"
               frameborder="0"
               allowFullScreen="true"
-            ></iframe>
+            ></iframe> */}
+            {/* <PowerBIEmbed
+              embedConfig={{
+                type: "report", // Supported types: report, dashboard, tile, visual, qna, paginated report and create
+                id: "8162c62e-4834-4d9b-876f-ee9828b8bd83>",
+                embedUrl:
+                  "https://app.powerbi.com/reportEmbed?reportId=8162c62e-4834-4d9b-876f-ee9828b8bd83&groupId=8f58fe7b-3b97-4b21-a51f-691b40aeb946&w=2&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLUZSQU5DRS1DRU5UUkFMLUEtUFJJTUFSWS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldCIsImVtYmVkRmVhdHVyZXMiOnsidXNhZ2VNZXRyaWNzVk5leHQiOnRydWUsImRpc2FibGVBbmd1bGFySlNCb290c3RyYXBSZXBvcnRFbWJlZCI6dHJ1ZX19",
+                accessToken: "<Access Token>",
+                tokenType: models.TokenType.Embed, // Use models.TokenType.Aad for SaaS embed
+                settings: {
+                  panes: {
+                    filters: {
+                      expanded: false,
+                      visible: false,
+                    },
+                  },
+                  background: models.BackgroundType.Transparent,
+                },
+              }}
+              eventHandlers={
+                new Map([
+                  [
+                    "loaded",
+                    function () {
+                      console.log("Report loaded");
+                    },
+                  ],
+                  [
+                    "rendered",
+                    function () {
+                      console.log("Report rendered");
+                    },
+                  ],
+                  [
+                    "error",
+                    function (event) {
+                      console.log(event.detail);
+                    },
+                  ],
+                  ["visualClicked", () => console.log("visual clicked")],
+                  ["pageChanged", (event) => console.log(event)],
+                ])
+              }
+              cssClassName={"reportClass"}
+              getEmbeddedComponent={(embeddedReport) => {
+                window.report = embeddedReport;
+              }}
+            /> */}
           </CustomTabPanel>
         </Box>
       </Box>
