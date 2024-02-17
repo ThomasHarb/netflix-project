@@ -244,7 +244,7 @@ for key in dictionary_df:
           <Typography variant="h6" align={"center"} color={"textSecondary"}>
             This project is design to analysis Netflix movies.
             <br />
-            The database was downloaded from Kaggle website
+            The dataset was downloaded from Kaggle website
           </Typography>
         </Box>
         {/*         <Box

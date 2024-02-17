@@ -6,7 +6,7 @@ function InfoBox({ title, data }) {
     <Card
       className="infoBox"
       style={{
-        width: "20%",
+        width: "24.5%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
