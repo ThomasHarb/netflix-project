@@ -8,7 +8,7 @@ import Avatar from "@mui/material/Avatar";
 import Photo from "../../../../svg/photoThomas.jpeg";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import { Typography } from "@mui/material";
+/* import { Typography } from "@mui/material"; */
 
 const Topbar = ({ onSidebarOpen }) => {
   return (
@@ -20,19 +20,19 @@ const Topbar = ({ onSidebarOpen }) => {
     >
       <Box display={"flex"} alignItems={"center"}>
         <Box marginRight={{ xs: 1, sm: 2 }}>
-          <IconButton onClick={onSidebarOpen} aria-label="Menu">
-            <Typography variant="h6" component="div" color={"textSecondary"}>
+          {/*           <IconButton onClick={onSidebarOpen} aria-label="Menu">
+            <Typography variant="h6" component="div" color={'textSecondary'}>
               Skills
-            </Typography>
-            {/*<MenuIcon />*/}
-          </IconButton>
+            </Typography> */}
+          {/*<MenuIcon />*/}
+          {/* </IconButton> */}
         </Box>
         <Box
           display={"flex"}
           alignItems="baseline"
           component="a"
           underline="none"
-          href={process.env.PUBLIC_URL + "/"}
+          href="https://thomasharb.github.io/home/"
           title="THarbonnier"
           height={{ xs: 28, md: 32 }}
           width={45}
@@ -58,7 +58,17 @@ const Topbar = ({ onSidebarOpen }) => {
           </IconButton>
         </Box>
         <Box sx={{ display: { xs: "none", md: "flex" } }} alignItems={"center"}>
-          <Box>
+          {/* <Box>
+            <Link
+              underline="none"
+              component="a"
+              href={process.env.PUBLIC_URL + "/"}
+              color="textPrimary"
+            >
+              Home
+            </Link>
+          </Box> */}
+          <Box marginX={2}>
             <Link
               underline="none"
               component="a"
@@ -66,16 +76,6 @@ const Topbar = ({ onSidebarOpen }) => {
               color="textPrimary"
             >
               Home
-            </Link>
-          </Box>
-          <Box marginX={2}>
-            <Link
-              underline="none"
-              component="a"
-              href="https://thomasharb.github.io/projects/"
-              color="textPrimary"
-            >
-              Projects
             </Link>
           </Box>
           <Box>

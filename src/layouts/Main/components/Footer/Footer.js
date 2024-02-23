@@ -1,15 +1,16 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+/* import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
-import Typography from "@mui/material/Typography";
 import Photo from "../../../../svg/photoThomas.jpeg";
 import Avatar from "@mui/material/Avatar";
+import { PiDesktopTowerFill } from "react-icons/pi"; */
 
 const Footer = () => (
   <Grid container spacing={2}>
-    <Grid item xs={12}>
+    {/* <Grid item xs={12}>
       <Box
         display={"flex"}
         justifyContent={"space-between"}
@@ -21,19 +22,37 @@ const Footer = () => (
           display={"flex"}
           component="a"
           underline="none"
-          href="https://thomasharb.github.io/home/"
+          href={process.env.PUBLIC_URL + "/"}
           title="home"
           height={24}
           width={35}
         >
-          <Avatar alt="Thomas Harbonnier" src={Photo} />
+ <Avatar alt="Thomas Harbonnier" src={Photo} />
+<Avatar
+            alt={"brand logo"}
+            sx={(theme) => ({
+              width: 48,
+              height: 48,
+              transform: "translateY(50%)",
+              "& > img": {
+                margin: 0,
+                backgroundColor: "common.white",
+              },
+              [theme.breakpoints.up("sm")]: {
+                width: 60,
+                height: 60,
+              },
+            })}
+          >
+            <PiDesktopTowerFill />
+          </Avatar>
         </Box>
         <Box display="flex" flexWrap={"wrap"} alignItems={"center"}>
           <Box marginTop={1} marginRight={2}>
             <Link
               underline="none"
               component="a"
-              href="https://thomasharb.github.io/home/"
+              href={process.env.PUBLIC_URL + "/"}
               color="textPrimary"
               variant={"subtitle2"}
             >
@@ -65,7 +84,7 @@ const Footer = () => (
           </Box>
         </Box>
       </Box>
-    </Grid>
+    </Grid> */}
     <Grid item xs={12}>
       <Typography
         align={"center"}
@@ -73,7 +92,7 @@ const Footer = () => (
         color="textSecondary"
         gutterBottom
       >
-        &copy; Harbonnier. 2023. All rights reserved
+        &copy; Harbonnier. 2024.
       </Typography>
       <Typography
         align={"center"}
@@ -81,10 +100,10 @@ const Footer = () => (
         color="textSecondary"
         component={"p"}
       >
-        When you visit or interact with this site, services or tools, authorised
-        service providers may use cookies for storing information to help
-        provide you with a better, faster and safer experience and for marketing
-        purposes.
+        Thomas Harbonnier a software engineer based in Strasbourg, France. This
+        website showcases some of his personal and professional skills.
+        <br /> This website is built with React and Material-UI, hosted on
+        GitHub Pages using Jekyll. The source code can be foun on GitHub
       </Typography>
     </Grid>
   </Grid>
