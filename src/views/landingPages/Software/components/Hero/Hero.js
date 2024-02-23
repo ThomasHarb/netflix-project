@@ -439,30 +439,53 @@ for key in dictionary_df:
                   className="app__left"
                   style={{
                     float: "left",
-                    width: "30%",
+                    width: "20%",
                     marginRight: "2%",
                     flex: "0.7",
                   }}
                 >
-                  <div
-                    className="app__header"
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: "20px",
-                      alignItems: "center",
-                    }}
-                  >
-                    {/* Header */}
-                    <Typography variant="h4" color={"primary"}>
-                      NETFLIX DATA
-                    </Typography>
-                    <DropdownSelect />
-                  </div>
                   <Grid
                     container
                     spacing={2}
                     alignItems="stretch"
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      flexWrap: "wrap",
+                    }}
+                  >
+                    <Grid
+                      item
+                      xs={12}
+                      sm={9}
+                      md={3}
+                      justifyContent="center"
+                      style={{ display: "flex", alignContent: "center" }}
+                      spacing={4}
+                    >
+                      {/* Header */}
+                      <Typography variant="h4" color={"primary"}>
+                        NETFLIX DATA
+                      </Typography>
+                    </Grid>
+                    <Grid
+                      item
+                      xs={12}
+                      sm={9}
+                      md={6}
+                      justifyContent="center"
+                      style={{ display: "flex", alignContent: "center" }}
+                      marginLeft={4}
+                    >
+                      <DropdownSelect />
+                    </Grid>
+                  </Grid>
+                  <Grid
+                    container
+                    spacing={2}
+                    alignItems="stretch"
+                    marginTop={4}
                     style={{
                       display: "flex",
                       flexDirection: "row",
@@ -542,7 +565,7 @@ for key in dictionary_df:
                 </div>
                 <div
                   className="card-container"
-                  style={{ width: "30%", height: "65%" }}
+                  style={{ width: "40%", height: "65%" }}
                 >
                   <Card
                     sx={{

@@ -15,7 +15,7 @@ function InfoBox({ title, data }) {
       <Typography className="infoBox__title" color="textSecondary">
         {title}
       </Typography>
-      <h2 className="infoBox__data">{data}</h2>
+      <h3 className="infoBox__data">{data}</h3>
     </Card>
   );
 }
