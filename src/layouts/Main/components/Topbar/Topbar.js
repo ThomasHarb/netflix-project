@@ -32,7 +32,7 @@ const Topbar = ({ onSidebarOpen }) => {
           alignItems="baseline"
           component="a"
           underline="none"
-          href="https://thomasharb.github.io/home/"
+          href={process.env.PUBLIC_URL + "/"}
           title="THarbonnier"
           height={{ xs: 28, md: 32 }}
           width={45}
@@ -57,22 +57,15 @@ const Topbar = ({ onSidebarOpen }) => {
             <GitHubIcon fontSize="large" />
           </IconButton>
         </Box>
-        <Box sx={{ display: { xs: "none", md: "flex" } }} alignItems={"center"}>
-          {/* <Box>
-            <Link
-              underline="none"
-              component="a"
-              href={process.env.PUBLIC_URL + "/"}
-              color="textPrimary"
-            >
-              Home
-            </Link>
-          </Box> */}
+        <Box
+          sx={{ display: { xs: "flex", md: "flex" }, flexWrap: "wrap" }}
+          alignItems={"center"}
+        >
           <Box flexGrow={1} marginRight={2}>
             <Link
               underline="none"
               component="a"
-              href="https://thomasharb.github.io/home/"
+              href={process.env.PUBLIC_URL + "/"}
               color="textPrimary"
             >
               Home
