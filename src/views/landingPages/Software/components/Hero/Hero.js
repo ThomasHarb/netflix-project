@@ -459,36 +459,79 @@ for key in dictionary_df:
                     </Typography>
                     <DropdownSelect />
                   </div>
-                  <div
-                    className="app__stats"
-                    style={{ display: "flex", justifyContent: "space-between" }}
+                  <Grid
+                    container
+                    spacing={2}
+                    alignItems="stretch"
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      flexWrap: "wrap",
+                    }}
                   >
-                    <InfoBox
-                      title="Type"
-                      data={selectedShowData ? selectedShowData.type : ""}
-                    />
-                    <InfoBox
-                      title="Duration"
-                      data={selectedShowData ? selectedShowData.duration : ""}
-                    />
-                    <InfoBox
-                      title="Release year"
-                      data={
-                        selectedShowData ? selectedShowData.release_year : ""
-                      }
-                    />
-                    <InfoBox
-                      title="Rating"
-                      data={selectedShowData ? selectedShowData.rating : ""}
-                    />
-                    {/* Title + Select Input dropdown field */}
-                    {/* Infobxs */}
-                    {/* Infobxs */}
-                    {/* Infobxs */}
-                    {/* Table */}
-                    {/* Graph */}
-                    {/* Map */}
-                  </div>
+                    <Grid
+                      item
+                      xs={12}
+                      sm={6}
+                      md={3}
+                      justifyContent="center"
+                      style={{ display: "flex", alignContent: "center" }}
+                    >
+                      <InfoBox
+                        title="Type"
+                        data={selectedShowData ? selectedShowData.type : ""}
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      xs={12}
+                      sm={6}
+                      md={3}
+                      justifyContent="center"
+                      style={{ display: "flex", alignContent: "center" }}
+                    >
+                      <InfoBox
+                        title="Duration"
+                        data={selectedShowData ? selectedShowData.duration : ""}
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      xs={12}
+                      sm={6}
+                      md={3}
+                      justifyContent="center"
+                      style={{ display: "flex", alignContent: "center" }}
+                    >
+                      <InfoBox
+                        title="Release year"
+                        data={
+                          selectedShowData ? selectedShowData.release_year : ""
+                        }
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      xs={12}
+                      sm={6}
+                      md={3}
+                      justifyContent="center"
+                      style={{ display: "flex", alignContent: "center" }}
+                    >
+                      <InfoBox
+                        title="Rating"
+                        data={selectedShowData ? selectedShowData.rating : ""}
+                      />
+                      {/* Title + Select Input dropdown field */}
+                      {/* Infobxs */}
+                      {/* Infobxs */}
+                      {/* Infobxs */}
+                      {/* Table */}
+                      {/* Graph */}
+                      {/* Map */}
+                    </Grid>
+                  </Grid>
                   <div className="Map">
                     <Map
                       center={mapCenter}
@@ -503,7 +546,6 @@ for key in dictionary_df:
                 >
                   <Card
                     sx={{
-                      maxWidth: 343,
                       borderRadius: "20px",
                       boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
                       transition: "0.3s",
@@ -513,7 +555,7 @@ for key in dictionary_df:
                       alignItems: "center",
                     }}
                   >
-                    <Box sx={{ minWidth: 256 }}>
+                    <Box sx={{ minWidth: "100%" }}>
                       <Box
                         sx={{
                           padding: `4px 24px 0`,
@@ -604,7 +646,6 @@ for key in dictionary_df:
           </Card> */}
                   <Card
                     sx={{
-                      maxWidth: 343,
                       borderRadius: "20px",
                       boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
                       transition: "0.3s",
@@ -614,7 +655,7 @@ for key in dictionary_df:
                       alignItems: "center",
                     }}
                   >
-                    <Box sx={{ minWidth: 256 }}>
+                    <Box sx={{ minWidth: "100%" }}>
                       <Box
                         sx={{
                           padding: `4px 24px 0`,
@@ -733,7 +774,7 @@ for key in dictionary_df:
                       alignItems: "center",
                     }}
                   >
-                    <Box sx={{ minWidth: 256 }}>
+                    <Box sx={{ minWidth: "100%" }}>
                       <Box
                         sx={{
                           padding: `4px 24px 0`,
