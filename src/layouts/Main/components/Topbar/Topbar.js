@@ -68,7 +68,7 @@ const Topbar = ({ onSidebarOpen }) => {
               Home
             </Link>
           </Box> */}
-          <Box marginX={2}>
+          <Box flexGrow={1} marginRight={2}>
             <Link
               underline="none"
               component="a"
