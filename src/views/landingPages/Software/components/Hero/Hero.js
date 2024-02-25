@@ -408,458 +408,324 @@ for key in dictionary_df:
               />
             </Box>
           </CustomTabPanel>
-          <Grid item xs={12}>
-            <CustomTabPanel value={value} index={1}>
-              <Box
-                component={Card}
-                bgcolor={colors.blueGrey[800]}
-                padding={4}
-                maxWidth={1400}
-                margin={"0 auto"}
-                boxShadow={3}
-              >
-                <CodeBlock
-                  text={WholeScript}
-                  language="python"
-                  showLineNumbers={showLineNumbers}
-                  theme={paraisoDark}
-                />
-              </Box>
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={2}>
-              <div
-                className="App"
-                style={{
-                  display: "flex",
-                  justifyContent: "space-evenly",
-                  padding: "10px",
-                }}
-              >
-                <div
-                  className="app__left"
-                  style={{
-                    float: "left",
-                    width: "20%",
-                    marginRight: "2%",
-                    flex: "0.7",
+          <CustomTabPanel value={value} index={1}>
+            <Box
+              component={Card}
+              bgcolor={colors.blueGrey[800]}
+              padding={4}
+              maxWidth={1400}
+              margin={"0 auto"}
+              boxShadow={3}
+            >
+              <CodeBlock
+                text={WholeScript}
+                language="python"
+                showLineNumbers={showLineNumbers}
+                theme={paraisoDark}
+              />
+            </Box>
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={2}>
+            <Grid container direction="row" spacing={2}>
+              <Grid item xs={12} sm={12} md={16} lg={16}>
+                <Grid container direction="row" spacing={2}>
+                  <Grid item xs={6} sm={6} md={8} lg={8}>
+                    <Typography variant="h4">SELECT MOVIES</Typography>
+                  </Grid>
+                  <Grid item xs={6} sm={6} md={4} lg={4}>
+                    <DropdownSelect />
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid
+              container
+              direction="row"
+              spacing={2}
+              marginTop={2}
+              flexWrap="wrap"
+            >
+              <Grid item xs={12} sm={12} md={16} lg={16}>
+                <Grid container direction="row" spacing={2}>
+                  <Grid item xs={6} sm={6} md={4} lg={4}>
+                    <Grid container direction="column" spacing={2}>
+                      <Grid item xs={6} sm={6} md={4} lg={4}>
+                        <InfoBox
+                          title="Type"
+                          data={selectedShowData ? selectedShowData.type : ""}
+                        />
+                      </Grid>
+                      <Grid item xs={6} sm={6} md={4} lg={4}>
+                        <InfoBox
+                          title="Duration"
+                          data={
+                            selectedShowData ? selectedShowData.duration : ""
+                          }
+                        />
+                      </Grid>
+                      <Grid item xs={6} sm={6} md={4} lg={4}>
+                        <InfoBox
+                          title="Release year"
+                          data={
+                            selectedShowData
+                              ? selectedShowData.release_year
+                              : ""
+                          }
+                        />
+                      </Grid>
+                      <Grid item xs={6} sm={6} md={4} lg={4}>
+                        <InfoBox
+                          title="Rating"
+                          data={selectedShowData ? selectedShowData.rating : ""}
+                        />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={6} sm={6} md={8} lg={8}>
+                    <Grid container direction="column" spacing={2}>
+                      <Grid item xs={8} sm={8} md={6} lg={6}>
+                        <Card
+                          sx={{
+                            borderRadius: "20px",
+                            boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
+                            transition: "0.3s",
+                            margin: "1px 0",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Box sx={{ minWidth: "100%" }}>
+                            <Box
+                              sx={{
+                                padding: `4px 24px 0`,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                              }}
+                            >
+                              <Avatar
+                                alt={"brand logo"}
+                                sx={(theme) => ({
+                                  width: 48,
+                                  height: 48,
+                                  transform: "translateY(50%)",
+                                  "& > img": {
+                                    margin: 0,
+                                    backgroundColor: "common.white",
+                                  },
+                                  [theme.breakpoints.up("sm")]: {
+                                    width: 60,
+                                    height: 60,
+                                  },
+                                })}
+                              >
+                                <GiDualityMask />
+                              </Avatar>
+                              <Typography
+                                sx={{
+                                  textTransform: "uppercase",
+                                  fontSize: 14,
+                                  color: "grey.500",
+                                  letterSpacing: "1px",
+                                }}
+                              >
+                                Cast
+                              </Typography>
+                            </Box>
+                            <Box
+                              component="hr"
+                              sx={(theme) => ({
+                                backgroundColor: "grey.200",
+                                marginBottom: `${24 - 1}px`, // minus 1 due to divider height
+                                [theme.breakpoints.up("sm")]: {
+                                  marginBottom: `${30 - 1}px`, // minus 1 due to divider height
+                                },
+                              })}
+                            />
+                          </Box>
+                          <CardContent>
+                            <Typography
+                              variant="body2"
+                              component="div"
+                              color="text.secondary"
+                            >
+                              {castList.map((castMember, index) => (
+                                <tr key={index} style={{ marginTop: "10%" }}>
+                                  <td>{castMember}</td>
+                                </tr>
+                              ))}
+                            </Typography>
+                          </CardContent>
+                        </Card>
+                      </Grid>
+                      <Grid item xs={8} sm={8} md={6} lg={6}>
+                        <Card
+                          sx={{
+                            borderRadius: "20px",
+                            boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
+                            transition: "0.3s",
+                            margin: "1px 0",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Box sx={{ minWidth: "100%" }}>
+                            <Box
+                              sx={{
+                                padding: `4px 24px 0`,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                              }}
+                            >
+                              <Avatar
+                                alt={"brand logo"}
+                                sx={(theme) => ({
+                                  width: 48,
+                                  height: 48,
+                                  transform: "translateY(50%)",
+                                  "& > img": {
+                                    margin: 0,
+                                    backgroundColor: "common.white",
+                                  },
+                                  [theme.breakpoints.up("sm")]: {
+                                    width: 60,
+                                    height: 60,
+                                  },
+                                })}
+                              >
+                                <GiDirectorChair />
+                              </Avatar>
+                              <Typography
+                                sx={{
+                                  textTransform: "uppercase",
+                                  fontSize: 14,
+                                  color: "grey.500",
+                                  letterSpacing: "1px",
+                                }}
+                              >
+                                Directed By
+                              </Typography>
+                            </Box>
+                            <Box
+                              component="hr"
+                              sx={(theme) => ({
+                                backgroundColor: "grey.200",
+                                marginBottom: `${24 - 1}px`, // minus 1 due to divider height
+                                [theme.breakpoints.up("sm")]: {
+                                  marginBottom: `${30 - 1}px`, // minus 1 due to divider height
+                                },
+                              })}
+                            />
+                          </Box>
+                          <CardContent>
+                            <Typography
+                              variant="body2"
+                              component="div"
+                              color="text.secondary"
+                            >
+                              {directorList.map((directorMember, index) => (
+                                <tr key={index}>
+                                  <td>{directorMember}</td>
+                                </tr>
+                              ))}
+                            </Typography>
+                          </CardContent>
+                        </Card>
+                      </Grid>
+                      <Grid item xs={8} sm={8} md={6} lg={6}></Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+
+            <Grid container direction="row" spacing={2} marginTop={4}>
+              <Grid item xs={12} sm={12} md={16} lg={16}>
+                <Card
+                  sx={{
+                    borderRadius: "20px",
+                    boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
+                    transition: "0.3s",
+                    marginTop: "1px",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
                   }}
                 >
-                  <Grid
-                    container
-                    spacing={2}
-                    alignItems="stretch"
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      justifyContent: "center",
-                      flexWrap: "wrap",
-                    }}
-                  >
-                    <Grid
-                      item
-                      xs={12}
-                      sm={9}
-                      md={3}
-                      justifyContent="center"
-                      style={{ display: "flex", alignContent: "center" }}
-                      spacing={4}
+                  <Box sx={{ minWidth: "100%" }}>
+                    <Box
+                      sx={{
+                        padding: `4px 24px 0`,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
                     >
-                      {/* Header */}
-                      <Typography variant="h4" color={"primary"}>
-                        NETFLIX DATA
+                      <Avatar
+                        alt={"brand logo"}
+                        sx={(theme) => ({
+                          width: 48,
+                          height: 48,
+                          transform: "translateY(50%)",
+                          "& > img": {
+                            margin: 0,
+                            backgroundColor: "common.white",
+                          },
+                          [theme.breakpoints.up("sm")]: {
+                            width: 60,
+                            height: 60,
+                          },
+                        })}
+                      >
+                        <MdSummarize />
+                      </Avatar>
+                      <Typography
+                        sx={{
+                          textTransform: "uppercase",
+                          fontSize: 14,
+                          color: "grey.500",
+                          letterSpacing: "1px",
+                        }}
+                      >
+                        Description
                       </Typography>
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      sm={9}
-                      md={6}
-                      justifyContent="center"
-                      style={{ display: "flex", alignContent: "center" }}
-                      marginLeft={4}
-                    >
-                      <DropdownSelect />
-                    </Grid>
-                  </Grid>
-                  <Grid
-                    container
-                    spacing={2}
-                    alignItems="stretch"
-                    marginTop={4}
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      justifyContent: "center",
-                      flexWrap: "wrap",
-                    }}
-                  >
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      md={3}
-                      justifyContent="center"
-                      style={{ display: "flex", alignContent: "center" }}
-                    >
-                      <InfoBox
-                        title="Type"
-                        data={selectedShowData ? selectedShowData.type : ""}
-                      />
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      md={3}
-                      justifyContent="center"
-                      style={{ display: "flex", alignContent: "center" }}
-                    >
-                      <InfoBox
-                        title="Duration"
-                        data={selectedShowData ? selectedShowData.duration : ""}
-                      />
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      md={3}
-                      justifyContent="center"
-                      style={{ display: "flex", alignContent: "center" }}
-                    >
-                      <InfoBox
-                        title="Release year"
-                        data={
-                          selectedShowData ? selectedShowData.release_year : ""
-                        }
-                      />
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      md={3}
-                      justifyContent="center"
-                      style={{ display: "flex", alignContent: "center" }}
-                    >
-                      <InfoBox
-                        title="Rating"
-                        data={selectedShowData ? selectedShowData.rating : ""}
-                      />
-                      {/* Title + Select Input dropdown field */}
-                      {/* Infobxs */}
-                      {/* Infobxs */}
-                      {/* Infobxs */}
-                      {/* Table */}
-                      {/* Graph */}
-                      {/* Map */}
-                    </Grid>
-                  </Grid>
-                  <div className="Map">
-                    <Map
-                      center={mapCenter}
-                      zoom={mapZoom}
-                      onCenterChange={(newCenter) => setMapCenter(newCenter)}
+                    </Box>
+                    <Box
+                      component="hr"
+                      sx={(theme) => ({
+                        backgroundColor: "grey.200",
+                        marginBottom: `${24 - 1}px`, // minus 1 due to divider height
+                        [theme.breakpoints.up("sm")]: {
+                          marginBottom: `${30 - 1}px`, // minus 1 due to divider height
+                        },
+                      })}
                     />
-                  </div>
-                </div>
-                <div
-                  className="card-container"
-                  style={{ width: "40%", height: "65%" }}
-                >
-                  <Card
-                    sx={{
-                      borderRadius: "20px",
-                      boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
-                      transition: "0.3s",
-                      margin: "60px 0",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Box sx={{ minWidth: "100%" }}>
-                      <Box
-                        sx={{
-                          padding: `4px 24px 0`,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        <Avatar
-                          alt={"brand logo"}
-                          sx={(theme) => ({
-                            width: 48,
-                            height: 48,
-                            transform: "translateY(50%)",
-                            "& > img": {
-                              margin: 0,
-                              backgroundColor: "common.white",
-                            },
-                            [theme.breakpoints.up("sm")]: {
-                              width: 60,
-                              height: 60,
-                            },
-                          })}
-                        >
-                          <GiDualityMask />
-                        </Avatar>
-                        <Typography
-                          sx={{
-                            textTransform: "uppercase",
-                            fontSize: 14,
-                            color: "grey.500",
-                            letterSpacing: "1px",
-                          }}
-                        >
-                          Cast
-                        </Typography>
-                      </Box>
-                      <Box
-                        component="hr"
-                        sx={(theme) => ({
-                          backgroundColor: "grey.200",
-                          marginBottom: `${24 - 1}px`, // minus 1 due to divider height
-                          [theme.breakpoints.up("sm")]: {
-                            marginBottom: `${30 - 1}px`, // minus 1 due to divider height
-                          },
-                        })}
-                      />
-                    </Box>
-                    <CardContent>
-                      <Typography
-                        variant="body2"
-                        component="div"
-                        color="text.secondary"
-                      >
-                        {castList.map((castMember, index) => (
-                          <tr key={index} style={{ marginTop: "10%" }}>
-                            <td>{castMember}</td>
-                          </tr>
-                        ))}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                  {/* <Card
-            className="Cast"
-            style={{
-              margin: "10px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <CardContent>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Cast Member</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {castList.map((castMember, index) => (
-                    <tr key={index} style={{ marginTop: "10%" }}>
-                      <td>{castMember}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </CardContent>
-          </Card> */}
-                  <Card
-                    sx={{
-                      borderRadius: "20px",
-                      boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
-                      transition: "0.3s",
-                      margin: "60px 0",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Box sx={{ minWidth: "100%" }}>
-                      <Box
-                        sx={{
-                          padding: `4px 24px 0`,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        <Avatar
-                          alt={"brand logo"}
-                          sx={(theme) => ({
-                            width: 48,
-                            height: 48,
-                            transform: "translateY(50%)",
-                            "& > img": {
-                              margin: 0,
-                              backgroundColor: "common.white",
-                            },
-                            [theme.breakpoints.up("sm")]: {
-                              width: 60,
-                              height: 60,
-                            },
-                          })}
-                        >
-                          <GiDirectorChair />
-                        </Avatar>
-                        <Typography
-                          sx={{
-                            textTransform: "uppercase",
-                            fontSize: 14,
-                            color: "grey.500",
-                            letterSpacing: "1px",
-                          }}
-                        >
-                          Directed By
-                        </Typography>
-                      </Box>
-                      <Box
-                        component="hr"
-                        sx={(theme) => ({
-                          backgroundColor: "grey.200",
-                          marginBottom: `${24 - 1}px`, // minus 1 due to divider height
-                          [theme.breakpoints.up("sm")]: {
-                            marginBottom: `${30 - 1}px`, // minus 1 due to divider height
-                          },
-                        })}
-                      />
-                    </Box>
-                    <CardContent>
-                      <Typography
-                        variant="body2"
-                        component="div"
-                        color="text.secondary"
-                      >
-                        {directorList.map((directorMember, index) => (
-                          <tr key={index}>
-                            <td>{directorMember}</td>
-                          </tr>
-                        ))}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                  {/* <Card
-            className="Director"
-            director={directorList}
-            style={{
-              padding: "30px",
-              margin: "10px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <CardContent>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Directed By</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {directorList.map((directorMember, index) => (
-                    <tr key={index}>
-                      <td>{directorMember}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </CardContent>
-          </Card> */}
-                  {/* <Card
-            className="Description"
-            style={{
-              padding: "30px",
-              margin: "10px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Typography className="Description" color="textPrimary">
-              Description
-            </Typography>
-            <h4 className="Description_data">
-              {selectedShowData ? selectedShowData.description : ""}
-            </h4>
-          </Card> */}
-                  <Card
-                    sx={{
-                      borderRadius: "20px",
-                      boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
-                      transition: "0.3s",
-                      marginTop: "30px",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Box sx={{ minWidth: "100%" }}>
-                      <Box
-                        sx={{
-                          padding: `4px 24px 0`,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        <Avatar
-                          alt={"brand logo"}
-                          sx={(theme) => ({
-                            width: 48,
-                            height: 48,
-                            transform: "translateY(50%)",
-                            "& > img": {
-                              margin: 0,
-                              backgroundColor: "common.white",
-                            },
-                            [theme.breakpoints.up("sm")]: {
-                              width: 60,
-                              height: 60,
-                            },
-                          })}
-                        >
-                          <MdSummarize />
-                        </Avatar>
-                        <Typography
-                          sx={{
-                            textTransform: "uppercase",
-                            fontSize: 14,
-                            color: "grey.500",
-                            letterSpacing: "1px",
-                          }}
-                        >
-                          Description
-                        </Typography>
-                      </Box>
-                      <Box
-                        component="hr"
-                        sx={(theme) => ({
-                          backgroundColor: "grey.200",
-                          marginBottom: `${24 - 1}px`, // minus 1 due to divider height
-                          [theme.breakpoints.up("sm")]: {
-                            marginBottom: `${30 - 1}px`, // minus 1 due to divider height
-                          },
-                        })}
-                      />
-                    </Box>
-                    <CardContent>
-                      <Typography
-                        variant="body2"
-                        component="div"
-                        color="text.secondary"
-                      >
-                        {selectedShowData ? selectedShowData.description : ""}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </div>
-              </div>
-            </CustomTabPanel>
-          </Grid>
+                  </Box>
+                  <CardContent>
+                    <Typography
+                      variant="body2"
+                      component="div"
+                      color="text.secondary"
+                    >
+                      {selectedShowData ? selectedShowData.description : ""}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grid>
+            <Grid container direction="row" spacing={2} marginTop={4}>
+              <Grid item xs={12} sm={12} md={16} lg={16}>
+                <Map
+                  center={mapCenter}
+                  zoom={mapZoom}
+                  onCenterChange={(newCenter) => setMapCenter(newCenter)}
+                />
+              </Grid>
+            </Grid>
+          </CustomTabPanel>
         </Box>
       </Box>
     </Box>
