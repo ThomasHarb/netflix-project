@@ -48,18 +48,20 @@ const Main = ({
           position={"fixed"}
           sx={{
             backgroundColor: theme.palette.background.paper,
+            boxShadow: "none",
           }}
-          elevation={1}
+          elevation={0}
         >
-          <Container paddingY={{ xs: 1 / 2, sm: 1 }}>
-            <Topbar
-              onSidebarOpen={handleSidebarOpen}
-              themeMode={themeMode}
-              themeToggler={themeToggler}
-              setThemePalette={setThemePalette}
-              paletteType={paletteType}
-            />
-          </Container>
+          <Topbar
+            onSidebarOpen={handleSidebarOpen}
+            themeMode={themeMode}
+            themeToggler={themeToggler}
+            setThemePalette={setThemePalette}
+            paletteType={paletteType}
+            sx={{
+              backgroundColor: theme.palette.background.paper,
+            }}
+          />
         </AppBar>
       </HideOnScroll>
       <Sidebar
