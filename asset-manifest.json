@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/netflix-project/static/css/main.ce1bc9e6.css",
-    "main.js": "/netflix-project/static/js/main.e06c30f3.js",
+    "main.js": "/netflix-project/static/js/main.bd078894.js",
     "static/js/6453.5d0e6246.chunk.js": "/netflix-project/static/js/6453.5d0e6246.chunk.js",
     "react-syntax-highlighter/refractor-core-import.js": "/netflix-project/static/js/react-syntax-highlighter/refractor-core-import.7646876b.chunk.js",
     "react-syntax-highlighter_languages_refractor_abap.js": "/netflix-project/static/js/react-syntax-highlighter_languages_refractor_abap.8ca25f41.chunk.js",
@@ -288,7 +288,7 @@
     "static/media/slick.woff": "/netflix-project/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/netflix-project/index.html",
     "main.ce1bc9e6.css.map": "/netflix-project/static/css/main.ce1bc9e6.css.map",
-    "main.e06c30f3.js.map": "/netflix-project/static/js/main.e06c30f3.js.map",
+    "main.bd078894.js.map": "/netflix-project/static/js/main.bd078894.js.map",
     "6453.5d0e6246.chunk.js.map": "/netflix-project/static/js/6453.5d0e6246.chunk.js.map",
     "refractor-core-import.7646876b.chunk.js.map": "/netflix-project/static/js/react-syntax-highlighter/refractor-core-import.7646876b.chunk.js.map",
     "react-syntax-highlighter_languages_refractor_abap.8ca25f41.chunk.js.map": "/netflix-project/static/js/react-syntax-highlighter_languages_refractor_abap.8ca25f41.chunk.js.map",
@@ -571,6 +571,6 @@
   },
   "entrypoints": [
     "static/css/main.ce1bc9e6.css",
-    "static/js/main.e06c30f3.js"
+    "static/js/main.bd078894.js"
   ]
 }
