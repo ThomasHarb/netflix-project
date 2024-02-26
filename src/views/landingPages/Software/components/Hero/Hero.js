@@ -7,7 +7,6 @@ import { colors } from "@mui/material";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import AppBar from "@mui/material/AppBar";
 import { CodeBlock, paraisoDark } from "react-code-blocks";
 import React, { useState } from "react";
 import {
@@ -19,14 +18,22 @@ import {
   Typography,
 } from "@mui/material";
 import shows from "../../../../../data/Netflix_data.json";
+import JsonCountries from "../../../../../data/country-code.json";
 import InfoBox from "../Dashboard/InfoBox";
 import { CardContent } from "@mui/material";
-import Map from "../Dashboard/Map";
 import "leaflet/dist/leaflet.css";
 import Avatar from "@mui/material/Avatar";
 import { GiDirectorChair, GiDualityMask } from "react-icons/gi";
 import { MdSummarize } from "react-icons/md";
 import Grid from "@mui/material/Grid";
+import {
+  ComposableMap,
+  Geographies,
+  Geography,
+  Marker,
+} from "react-simple-maps";
+import { geoEqualEarth } from "d3-geo";
+import countries from "../../../../../data/features.json";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -66,14 +73,31 @@ const Hero = () => {
   const [selectedShowData, setSelectedShowData] = useState(null);
   const [castList, setCastList] = useState([]);
   const [directorList, setDirectorList] = useState([]);
-  const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -4047796 });
-  const [mapZoom, setMapZoom] = useState(3);
+  /*   const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -4047796 });
+  const [mapZoom, setMapZoom] = useState(3); */
+  const [countryList, setCountryList] = useState([]);
+  const markers = countryList.map((countryMember) => {
+    const selectedCountry = JsonCountries[countryMember];
+    return {
+      markerOffset: -15,
+      name: { countryMember },
+      coordinates: [
+        parseFloat(selectedCountry["Latitude (average)"]),
+        parseFloat(selectedCountry["Longitude (average)"]),
+      ],
+    };
+  });
 
   const handleChangeMovie = (event) => {
     const newSelectedShow = event.target.value;
     setSelectedShow(newSelectedShow);
     const selectedShowData = shows[newSelectedShow];
     setSelectedShowData(selectedShowData);
+    setCountryList(
+      selectedShowData.country
+        .split(",")
+        .map((countryMember) => countryMember.trim())
+    );
     setCastList(
       selectedShowData.cast.split(",").map((castMember) => castMember.trim())
     );
@@ -82,20 +106,6 @@ const Hero = () => {
         .split(",")
         .map((directorMember) => directorMember.trim())
     );
-    if (selectedShowData) {
-      setSelectedShowData(selectedShowData);
-      const lat = parseFloat(selectedShowData.lat);
-      const lng = parseFloat(selectedShowData.lng);
-      if (isNaN(lat) || isNaN(lng)) {
-        // If the lat or lng is not a valid number, set the map center to a default value
-        setMapCenter([34.80746, -4047796]);
-      } else {
-        setMapCenter([lat, lng]);
-        setMapZoom(4);
-      }
-    } else {
-      setMapCenter([34.80746, -4047796]);
-    }
   };
 
   const DropdownSelect = () => (
@@ -118,7 +128,6 @@ const Hero = () => {
       </Select>
     </FormControl>
   );
-  const theme = useTheme();
   /*   const isMd = useMediaQuery(theme.breakpoints.up("md"), {
     defaultMatches: true,
   }); */
@@ -224,7 +233,6 @@ for key in dictionary_df:
           right: 0,
           height: "100%",
           backgroundSize: "18px 18px",
-          backgroundImage: `radial-gradient(${theme.palette.primary.dark} 20%, transparent 20%)`,
           opacity: 0.2,
         },
       }}
@@ -271,18 +279,11 @@ for key in dictionary_df:
             width: "100%",
           }}
         >
-          <AppBar position="flex" style={{ position: "flex" }}>
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              centered
-              color="primary"
-            >
-              <Tab label="Notebook" {...a11yProps(0)} />
-              <Tab label="Code Source" {...a11yProps(1)} />
-              <Tab label="Display Results" {...a11yProps(2)} />
-            </Tabs>
-          </AppBar>
+          <Tabs value={value} onChange={handleChange} centered color="primary">
+            <Tab label="Notebook" {...a11yProps(0)} />
+            <Tab label="Code Source" {...a11yProps(1)} />
+            <Tab label="Display Results" {...a11yProps(2)} />
+          </Tabs>
           <CustomTabPanel value={value} index={0}>
             {/* FIRST PART */}
             <Typography variant="h5" align={"center"}>
@@ -478,6 +479,33 @@ for key in dictionary_df:
                           title="Rating"
                           data={selectedShowData ? selectedShowData.rating : ""}
                         />
+                      </Grid>
+                      <Grid item xs={6} sm={6} md={4} lg={4}>
+                        <Card
+                          className="infoBox"
+                          style={{
+                            width: "100%",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Typography
+                            className="infoBox__title"
+                            color="textSecondary"
+                          >
+                            Country
+                          </Typography>
+                          <h3 className="infoBox__data">
+                            {countryList.map((countryMember, index) => {
+                              return (
+                                <tr key={index}>
+                                  <td>{countryMember}</td>
+                                </tr>
+                              );
+                            })}
+                          </h3>
+                        </Card>
                       </Grid>
                     </Grid>
                   </Grid>
@@ -716,15 +744,44 @@ for key in dictionary_df:
                 </Card>
               </Grid>
             </Grid>
-            <Grid container direction="row" spacing={2} marginTop={4}>
-              <Grid item xs={12} sm={12} md={16} lg={16}>
-                <Map
-                  center={mapCenter}
-                  zoom={mapZoom}
-                  onCenterChange={(newCenter) => setMapCenter(newCenter)}
-                />
+            {/* <Grid container direction="row" spacing={2} marginTop={4}>
+              <Grid item xs={12} sm={12} md={12} lg={12}>
+                {countryList.map((countryMember, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{countryMember}</td>
+                    </tr>
+                  );
+                })}
+                <ComposableMap
+                  projection="geoAzimuthalEqualArea"
+                  projectionConfig={{
+                    rotate: [-10.0, -52.0, 0],
+                    center: [-5, -3],
+                    scale: 1100,
+                  }}
+                >
+                  <Geographies
+                    geography={countries}
+                    fill="#D6D6DA"
+                    stroke="#FFFFFF"
+                    strokeWidth={0.5}
+                  >
+                    {({ geographies }) =>
+                      geographies.map((geo) => (
+                        <Geography key={geo.rsmKey} geography={geo} />
+                      ))
+                    }
+                  </Geographies>
+
+                  {markers.map((marker, index) => (
+                    <Marker key={index} coordinates={marker.coordinates}>
+                      <circle r={6} fill="red" />
+                    </Marker>
+                  ))}
+                </ComposableMap>
               </Grid>
-            </Grid>
+            </Grid> */}
           </CustomTabPanel>
         </Box>
       </Box>
